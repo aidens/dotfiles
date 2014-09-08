@@ -1,5 +1,5 @@
 [user]
-	name = Aiden Mune-ath	
+	name = Aiden Mune-ath
 	email =  Amuneath@gmail.com
 [core]
 	whitespace = trailing-space, space-before-tab
@@ -58,8 +58,7 @@
 	untracked = cyan
 
 [github]
-	user = jamestomasino
-
+	user = aidens
 [alias]
 
 	# rollback

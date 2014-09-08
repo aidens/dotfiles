@@ -44,11 +44,8 @@ fi
 echo "Loading Bash Profile"
 source ~/.bash_profile
 
-if [ ! -d "$HOME/.vim/bundle/vundle" ]; then
-	git clone https://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
-	vim -u "$HOME/.vimrc.bundles" +BundleInstall! +BundleClean +qall
-fi
 
+<<<<<<< HEAD
 # Update Local Vim Settings
 echo "Updating local vim setings"
 vim +BundleInstall! +BundleClean +qall
@@ -59,3 +56,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
 	rm -rf $HOME/.vim/bundle/YouCompleteMe
 fi
+=======
+>>>>>>> 35c8270d57e35236fd4b2609707f7db8214c9e97
