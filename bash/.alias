@@ -58,7 +58,8 @@ alias check9="lsof | grep 35729"
 alias bp="sublime . ~/.bash_profile"
 alias bpa="sublime . ~/.alias"
 alias tconfig="sublime . ~/.tmux.conf"
-
+alias checkpy="ps -fA | grep python"
+alias checkxp="sudo lsof -i :8080"
 # git
 alias gm="git mergetool"
 alias gc="git commit -m"
@@ -74,6 +75,21 @@ alias unstage="git reset HEAD --"
 alias last="git log -1 HEAD"
 alias visual="gitk"
 alias tmux="tmux -2"
+
+
+#npm and grunt
+alias npmi="npm install"
+alias grn="grunt"
+alias grnw="grunt watch"
+alias grnf="grunt --force"
+
+
+#ack
+hf='ack --html'
+
+#keybase
+alias ecm="keybase encrypt -m"
+alias dcm="keybase decrypt -m"
 
 # tmux
 alias tmux='tmux -2'

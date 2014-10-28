@@ -50,10 +50,6 @@ source ~/.bash_profile
 echo "Updating local vim setings"
 vim +BundleInstall! +BundleClean +qall
 
-# Update and install YouCompleteMe
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	cd $HOME/.vim/bundle/YouCompleteMe/ && git reset --hard HEAD && git submodule update --init --recursive && ./install.sh && cd -
-else
-	rm -rf $HOME/.vim/bundle/YouCompleteMe
-fi
+# remove YouCompleteMe, like a bawse
+rm -rf $HOME/.vim/bundle/YouCompleteMe
 
