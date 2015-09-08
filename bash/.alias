@@ -38,14 +38,20 @@ alias vime='vim -u ~/.vimrc.encryption.local -x'
 alias vimr='vim -u NONE'
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 03fcc05510a1a159cc15764505dd9bbc5c4447e8
 # old alias
 alias gd="bundle exec guard"
 alias o="open ."
 alias work="cd ~/Sites/git/work/"
+<<<<<<< HEAD
 alias freelance="cd ~/Sites/git/freelance"
+=======
+>>>>>>> 03fcc05510a1a159cc15764505dd9bbc5c4447e8
 alias fun="cd ~/Sites/git/fun/"
 alias dots="cd ~/Sites/git/fun/dotfiles/"
 alias info="df -h"
@@ -62,9 +68,12 @@ alias check9="lsof | grep 35729"
 alias bp="sublime . ~/.bash_profile"
 alias bpa="sublime . ~/.alias"
 alias tconfig="sublime . ~/.tmux.conf"
+<<<<<<< HEAD
 alias checkpy="ps -fA | grep python"c
 alias checkxp="sudo lsof -i :8080"
 alias check3000="lsof -i:3000"
+=======
+>>>>>>> 03fcc05510a1a159cc15764505dd9bbc5c4447e8
 
 # git
 alias gm="git mergetool"
@@ -77,11 +86,15 @@ alias gd="git diff"
 alias gb="git branch"
 alias gr="git remote"
 alias gco="git checkout"
+<<<<<<< HEAD
 alias np="git flow init -d"
+=======
+>>>>>>> 03fcc05510a1a159cc15764505dd9bbc5c4447e8
 alias unstage="git reset HEAD --"
 alias last="git log -1 HEAD"
 alias visual="gitk"
 alias tmux="tmux -2"
+<<<<<<< HEAD
 alias easy="say 'that was easy'"
 
 alias chrome="open -a Google\ Chrome http://localhost/work"
@@ -120,14 +133,19 @@ alias jf='ack --js'
 #keybase
 alias ecm="keybase encrypt -m"
 alias dcm="keybase decrypt -m"
+=======
+>>>>>>> 03fcc05510a1a159cc15764505dd9bbc5c4447e8
 
 # tmux
 alias tmux='tmux -2'
 alias t='tmux attach || tmux-session restore && tmux attach || tmux new'
 alias resume='tmux a'
 alias tsess='tmux new -s'
+<<<<<<< HEAD
 
 alias ks="tmux kill-session -t"
+=======
+>>>>>>> 03fcc05510a1a159cc15764505dd9bbc5c4447e8
 
 # ip addresses
 alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
