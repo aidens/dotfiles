@@ -38,10 +38,14 @@ alias vime='vim -u ~/.vimrc.encryption.local -x'
 alias vimr='vim -u NONE'
 
 
+
+
+
 # old alias
 alias gd="bundle exec guard"
 alias o="open ."
 alias work="cd ~/Sites/git/work/"
+alias freelance="cd ~/Sites/git/freelance"
 alias fun="cd ~/Sites/git/fun/"
 alias dots="cd ~/Sites/git/fun/dotfiles/"
 alias info="df -h"
@@ -58,8 +62,10 @@ alias check9="lsof | grep 35729"
 alias bp="sublime . ~/.bash_profile"
 alias bpa="sublime . ~/.alias"
 alias tconfig="sublime . ~/.tmux.conf"
-alias checkpy="ps -fA | grep python"
+alias checkpy="ps -fA | grep python"c
 alias checkxp="sudo lsof -i :8080"
+alias check3000="lsof -i:3000"
+
 # git
 alias gm="git mergetool"
 alias gc="git commit -m"
@@ -71,11 +77,33 @@ alias gd="git diff"
 alias gb="git branch"
 alias gr="git remote"
 alias gco="git checkout"
+alias np="git flow init -d"
 alias unstage="git reset HEAD --"
 alias last="git log -1 HEAD"
 alias visual="gitk"
 alias tmux="tmux -2"
+alias easy="say 'that was easy'"
 
+alias chrome="open -a Google\ Chrome http://localhost/work"
+alias free="open -a Google\ Chrome http://localhost/freelance"
+
+
+
+#livestream
+alias s='livestreamer '\''-p mpv --no-border'\'''
+
+#search
+
+alias instagram="open http://www.instagram.com"
+alias fb="open http://www.facebook.com"
+alias espn="open http://www.espn.com"
+alias reddit="open http://www.reddit.com"
+alias youtube="open http://www.youtube.com"
+
+
+#push scp
+
+alias moveit="scp -r"
 
 #npm and grunt
 alias npmi="npm install"
@@ -85,7 +113,9 @@ alias grnf="grunt --force"
 
 
 #ack
-hf='ack --html'
+alias hf='ack --html'
+alias sf='ack --sass'
+alias jf='ack --js'
 
 #keybase
 alias ecm="keybase encrypt -m"
@@ -96,6 +126,8 @@ alias tmux='tmux -2'
 alias t='tmux attach || tmux-session restore && tmux attach || tmux new'
 alias resume='tmux a'
 alias tsess='tmux new -s'
+
+alias ks="tmux kill-session -t"
 
 # ip addresses
 alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder'

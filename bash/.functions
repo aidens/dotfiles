@@ -282,3 +282,8 @@ n() {
 battery() {
 	ioreg -l | grep -i capacity | tr '\n' ' | ' | awk '{printf("%.2f%%\n", $10/$5 * 100)}'
 }
+
+gcap()
+{
+git add -A && git commit -m "${*:1}" && git pull && git push
+}
