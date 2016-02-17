@@ -1,55 +1,68 @@
-set nocompatible
-set background=dark
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""" BUNDLES """""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if has('win32') || has('win64')
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-
-    if has("multi_byte")
-        set termencoding=cp850
-        set encoding=utf-8
-        setglobal fileencoding=utf-8
-        set fileencodings=ucs-bom,utf-8,utf-16le,cp1252,iso-8859-15
-    endif
-endif
 filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'MarcWeber/vim-addon-mw-utils'
+call plug#begin('~/.vim/plugged')
 
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-Bundle 'elzr/vim-json'
-Bundle 'pangloss/vim-javascript'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'sjl/gundo.vim'
-Bundle 'AndrewRadev/sideways.vim'
-Bundle 'tomtom/quickfixsigns_vim'
-Bundle 'orenhe/pylint.vim'
-Bundle 'nvie/vim-flake8'
-Bundle 'bling/vim-airline'
-Bundle 'wakatime/vim-wakatime'
-Bundle 'jamestomasino/twilight256.vim'
-Bundle 'vim-scripts/twilight'
-Bundle 'mbbill/undotree'
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'jamestomasino/vim-writingsyntax'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-commentary'
-Bundle 'craigemery/vim-autotag'
-Bundle 'majutsushi/tagbar'
-Bundle 'rking/ag.vim'
-Bundle 'jamestomasino/vimwiki'
-Bundle 'jamestomasino/vimwiki_md2html'
+" Global
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'embear/vim-localvimrc'
+Plug 'reedes/vim-wheel'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/vim-easy-align'
 
-let g:spf13_no_fastTabs = 1
-let g:spf13_no_easyWindows = 1
+" Styling
+Plug 'romainl/Apprentice'
+Plug 'w0ng/vim-hybrid'
+Plug 'tomasr/molokai'
+Plug 'sickill/vim-monokai'
+Plug 'noahfrederick/vim-hemisu'
+Plug 'morhetz/gruvbox'
+Plug 'bling/vim-airline'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'junegunn/seoul256.vim'
+Plug 'cdmedia/itg_flat_vim'
+Plug 'orthecreedence/void.vim'
+Plug 'vim-scripts/twilight256.vim'
+Plug 'vim-scripts/desertEx'
+Plug 'vim-scripts/synic.vim'
+Plug 'vim-scripts/lilypink'
+Plug 'croaker/mustang-vim'
+Plug 'adlawson/vim-sorcerer'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'jordwalke/flatlandia'
+
+" Writing/Authoring Tools
+Plug 'reedes/vim-pencil'
+Plug 'tpope/vim-abolish'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'tpope/vim-markdown'
+Plug 'mattly/vim-markdown-enhancements'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-litecorrect'
+Plug 'reedes/vim-textobj-sentence'
+Plug 'reedes/vim-wordy'
+
+" Development Tools
+Plug 'tpope/vim-surround'
+Plug 'elzr/vim-json'
+Plug 'pangloss/vim-javascript'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'tomtom/quickfixsigns_vim'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-commentary'
+Plug 'scrooloose/syntastic'
+Plug 'mattn/emmet-vim'
+Plug 'ajh17/VimCompletesMe'
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
 
 " vim: set sw=4 ts=4 sts=4 et tw=78 nospell:

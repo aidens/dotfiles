@@ -37,9 +37,11 @@ alias chess='cd ~ && /Applications/Chess.app/Contents/Resources/sjeng.ChessEngin
 alias vime='vim -u ~/.vimrc.encryption.local -x'
 alias vimr='vim -u NONE'
 
+# trash
+alias trash='sudo rm -rf ~/.Trash/*'
 
-
-
+# funny sounds
+alias easy='ffplay ~/Music/easy.mp3'
 
 # old alias
 alias gd="bundle exec guard"
@@ -71,7 +73,7 @@ alias gm="git mergetool"
 alias gc="git commit -m"
 alias gca="git commit -am"
 alias gs="git status"
-alias gp="git push"
+alias gp="git push && easy" 
 alias gaa="git add -A"
 alias gd="git diff"
 alias gb="git branch"
@@ -82,7 +84,7 @@ alias unstage="git reset HEAD --"
 alias last="git log -1 HEAD"
 alias visual="gitk"
 alias tmux="tmux -2"
-alias easy="say 'that was easy'"
+#alias easy="say 'that was easy'"
 
 alias chrome="open -a Google\ Chrome http://localhost/work"
 alias free="open -a Google\ Chrome http://localhost/freelance"
@@ -133,7 +135,7 @@ alias ks="tmux kill-session -t"
 alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-alias iplocal="ipconfig getifaddr en1"
+alias iplocal="ipconfig getifaddr"
 
 # view http traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"

@@ -1,6 +1,6 @@
 [user]
 	name = Aiden Mune-ath
-	email =  Amuneath@gmail.com
+	email =  aiden.mune-ath@bluediesel.com
 [core]
 	whitespace = trailing-space, space-before-tab
 	excludesfile = ~/.gitignore_global
@@ -280,5 +280,3 @@
 
 	pconfig = config -f .git/config
 	up = "!git remote update -p; git merge --ff-only @{u}"
-
-

@@ -3,6 +3,11 @@ if [ -f "$HOME/.bashrc" ] ; then
     . ~/.bashrc
 fi
 
+# z.sh
+if [ -f "$HOME/.zsh" ] ; then
+    . "$HOME/.zsh"
+fi
+
 # functions
 if [ -f "$HOME/.functions" ] ; then
     . "$HOME/.functions"
@@ -13,9 +18,9 @@ if [ -f "$HOME/.alias" ] ; then
     . "$HOME/.alias"
 fi
 
-# z.sh
-if [ -f "$HOME/.zsh" ] ; then
-    . "$HOME/.zsh"
+# platform specific aliases
+if [ -f "$HOME/.platform" ] ; then
+    . "$HOME/.platform"
 fi
 
 # git-completion

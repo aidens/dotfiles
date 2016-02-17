@@ -14,10 +14,20 @@ function trimspace() {
 ################################## FUNCTIONS ###################################
 ################################################################################
 
-# basic todo list
+# Todo List & Completion
+_todo() {
+	local iter use cur
+	cur=${COMP_WORDS[COMP_CWORD]}
+	use=$(cat "$TODOFILE" | awk '{gsub(/ /,"\\ ")}8')
+	use="${use//\\ /___}"
+	for iter in $use; do
+		if [[ $iter =~ ^$cur ]]; then
+			COMPREPLY+=( "${iter//___/ }" )
+		fi
+	done
+}
 function todo {
 	: "${TODO:?'TODO ENV Var not set'}"
-
 	# If we are in a tmux session, name the file with the session name
 	# If not in tmux, use the full $TODO env var for path/file
 	if echo "$TERM" | grep -Fq screen && test "$TMUX" ; then
@@ -45,6 +55,7 @@ function todo {
 		cat "$TODOFILE" | awk '{ print NR, "-", $0 }'
 	fi
 }
+complete -F _todo todo
 
 # find todo notes in current project
 function todos {
@@ -91,13 +102,17 @@ function server() {
 # Start a PHP server from a directory, optionally specifying the port
 # (Requires PHP 5.4.0+.)
 function phpserver() {
-	local port="${1:-4000}"
-	local ip=$(ipconfig getifaddr en1)
-	if [[ -z ${ip} ]] ; then
-		local ip=$(ipconfig getifaddr en0)
+	if hash ipconfig 2>/dev/null; then
+		local port="${1:-4000}"
+		local ip=$(ipconfig getifaddr en1)
+		if [[ -z ${ip} ]] ; then
+			local ip=$(ipconfig getifaddr en0)
+		fi
+		sleep 1 && open "http://${ip}:${port}/" &
+		php -S "${ip}:${port}"
+	else
+		php -S "127.0.0.1:4000"
 	fi
-	sleep 1 && open "http://${ip}:${port}/" &
-	php -S "${ip}:${port}"
 }
 
 # Start a .NET server using mono
@@ -109,6 +124,11 @@ function netserver() {
 	fi
 	sleep 1 && open "http://${ip}:${port}/" &
 	xsp2 --port "${port}" --address "${ip}" --verbose
+}
+
+# R language
+function knit() {
+	Rscript -e "rmarkdown::render(\"$1\")"
 }
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
@@ -172,39 +192,6 @@ function gittreestatus() {
 	fi
 }
 
-gitpullall() {
-  REMOTES="$@";
-  if [ -z "$REMOTES" ]; then
-    REMOTES=$(git remote);
-  fi
-  REMOTES=$(echo "$REMOTES" | xargs -n1 echo)
-  CLB=$(git branch -l|awk '/^\*/{print $2}');
-  echo "$REMOTES" | while read REMOTE; do
-    git remote update "$REMOTE"
-    git remote show "$REMOTE" -n \
-    | awk '/merges with remote/{print $5" "$1}' \
-    | while read line; do
-      RB=$(echo "$line"|cut -f1 -d" ");
-      ARB="refs/remotes/$REMOTE/$RB";
-      LB=$(echo "$line"|cut -f2 -d" ");
-      ALB="refs/heads/$LB";
-      NBEHIND=$(( $(git rev-list --count "$ALB".."$ARB" 2>/dev/null) +0));
-      NAHEAD=$(( $(git rev-list --count "$ARB".."$ALB" 2>/dev/null) +0));
-      if [ "$NBEHIND" -gt 0 ]; then
-        if [ "$NAHEAD" -gt 0 ]; then
-          echo " branch $LB is $NBEHIND commit(s) behind and $NAHEAD commit(s) ahead of $REMOTE/$RB. could not be fast-forwarded";
-        elif [ "$LB" = "$CLB" ]; then
-          echo " branch $LB was $NBEHIND commit(s) behind of $REMOTE/$RB. fast-forward merge";
-          git merge -q "$ARB";
-        else
-          echo " branch $LB was $NBEHIND commit(s) behind of $REMOTE/$RB. reseting local branch to remote";
-          git branch -l -f "$LB" -t "$ARB" >/dev/null;
-        fi
-      fi
-    done
-  done
-}
-
 # Swap 2 filenames around, if they exist
 function swap() { 
     local TMPFILE=tmp.$$
@@ -216,6 +203,11 @@ function swap() {
     mv "$1" $TMPFILE
     mv "$2" "$1"
     mv $TMPFILE "$2"
+}
+
+# batch rename
+function change_all_extensions() {
+	for old in *."$1"; do mv $old `basename $old ."$1"`."$2"; done
 }
 
 # Use the right extraction method based on file extension
@@ -262,28 +254,119 @@ old() {
     mv "$1"{,.old}
 }
 
-# Note taking functions
-nls() {
-	: "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
-	ls -c "$NOTE_DIR" | grep "$*"
+# Note taking function and command completion
+_n() {
+	local lis=$(ls -1 "$NOTE_DIR" | sed -e 's/\..*$//')
+	local cur=${COMP_WORDS[COMP_CWORD]}
+	COMPREPLY=( $(compgen -W "$lis" -- $cur) )
 }
-
 n() {
 	: "${NOTE_DIR:?'NOTE_DIR ENV Var not set'}"
 	if [ $# -eq 0 ]
 		then
-			nls
+			ls -1 "$NOTE_DIR" | grep "$*" | sed -e 's/\..*$//'
+
 	else
-		$EDITOR "$NOTE_DIR"/"$*".txt
+		case "$1" in
+			"-d")
+				rm "$NOTE_DIR"/"$2".md
+				;;
+			*)
+				$EDITOR "$NOTE_DIR"/"$*".md
+				;;
+		esac
 	fi
 }
+complete -F _n n
 
 # get battery level on osx
 battery() {
 	ioreg -l | grep -i capacity | tr '\n' ' | ' | awk '{printf("%.2f%%\n", $10/$5 * 100)}'
 }
 
-gcap()
-{
-git add -A && git commit -m "${*:1}" && git pull && git push
+# c - browse chrome history
+c() {
+	local cols sep
+		cols=$(( COLUMNS / 3 ))
+		sep='{::}'
+
+		cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+
+		sqlite3 -separator $sep /tmp/h \
+		"select substr(title, 1, $cols), url
+		from urls order by last_visit_time desc" |
+		awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+		fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
+# fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
+flog() {
+  local out shas sha q k
+  while out=$(
+      git log --graph --color=always \
+          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+      fzf --ansi --multi --no-sort --reverse --query="$q" \
+          --print-query --expect=ctrl-d --toggle-sort=\`); do
+    q=$(head -1 <<< "$out")
+    k=$(head -2 <<< "$out" | tail -1)
+    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+    [ -z "$shas" ] && continue
+    if [ "$k" = ctrl-d ]; then
+      git diff --color=always $shas | less -R
+    else
+      for sha in $shas; do
+        git show --color=always $sha | less -R
+      done
+    fi
+  done
+}
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+  local file
+  file=$(fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && ${EDITOR:-vim} "$file"
+}
+
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-*} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# fda - including hidden directories
+fda() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# fkill - kill process
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
+}
+
+# Override Z for use with fzf
+unalias z 2> /dev/null
+z() {
+  if [[ -z "$*" ]]; then
+    cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  else
+    _z "$@"
+  fi
 }
