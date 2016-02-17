@@ -54,12 +54,11 @@ fi
 <<<<<<< HEAD
 # remove YouCompleteMe, like a bawse
 rm -rf $HOME/.vim/bundle/YouCompleteMe
-=======
+
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 	if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
 		tmux source-file "$HOME/.tmux.conf"
 	fi
 fi
->>>>>>> 2d911522182651b8a20b430e47ddd30a8ac48046
 
