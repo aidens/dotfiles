@@ -50,9 +50,7 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-
-<<<<<<< HEAD
-# remove YouCompleteMe, like a bawse
+remove YouCompleteMe, like a bawse
 rm -rf $HOME/.vim/bundle/YouCompleteMe
 
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
