@@ -14,7 +14,7 @@ export CLICOLOR=1
 export R_LIBS="$HOME/.rlib"
 
 # path vars
-export DROPBOX_PATH="$HOME/Sites/sync/Dropbox"
+export DROPBOX_PATH="$HOME/Dropbox"
 export SPIDEROAK_PATH="$HOME/Sites/sync/spideroak"
 export SSH_ENV="$HOME/.ssh/environment"
 export NODE_PATH="/usr/local/lib/jsctags:/usr/local/lib/node:/usr/bin/npm"

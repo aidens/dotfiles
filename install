@@ -51,6 +51,10 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 fi
 
 
+<<<<<<< HEAD
+# remove YouCompleteMe, like a bawse
+rm -rf $HOME/.vim/bundle/YouCompleteMe
+
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 	if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
