@@ -13,6 +13,21 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
+
+# ssh-key
+alias key="pbcopy < ~/.ssh/id_rsa.pub"
+
+#spotify 
+alias spot="spotify play"	
+alias spota="spotify play album"
+alias spots="spotify pause"
+alias spotq="spotify quit"
+alias spotn="spotify next"
+alias spotp="spotify prev"
+alias spotr="spotify toggle repeat"
+alias spotart="spotify play artist"
+alias spoti="spotify status"
+
 # aliases to default commands with certain switches
 alias grep='grep --color=auto'
 alias mkdir='mkdir -p'
